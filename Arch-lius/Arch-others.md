@@ -384,7 +384,7 @@ sudo shutdown now
    
    ```
 
-3. 如上图，执行 sudo pacman -S nodejs-lts-gallium npm 进行安装
+3. 如上图，执行 sudo pacman -S nodejs-lts-gallium npm yarn 进行安装
 
 4. 如果要使用vue,则还需要执行 npm install -g @vue/cli 进行安装
 
@@ -479,6 +479,12 @@ python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
 
 ```js
 yay xunlei-bin
+```
+
+gnome-boxes
+
+```js
+sudo pacman -S gnome-boxes
 ```
 
 #### 忘记密码
