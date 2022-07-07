@@ -475,6 +475,12 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
 ```
 
+##### 迅雷
+
+```js
+yay xunlei-bin
+```
+
 #### 忘记密码
 
 1. 重新启动或打开Arch服务器系统。默认情况下，将首先选择第一个栏目
