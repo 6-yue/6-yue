@@ -381,6 +381,7 @@ sudo shutdown now
        Evented I/O for V8 javascript (LTS release: Fermium)
    community/nodejs-lts-gallium 16.15.0-1 [已安装]
        Evented I/O for V8 javascript (LTS release: Gallium)
+   yarn global add vue-cli 安装vue脚手架
    
    ```
 
