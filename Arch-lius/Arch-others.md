@@ -381,10 +381,15 @@ sudo shutdown now
        Evented I/O for V8 javascript (LTS release: Fermium)
    community/nodejs-lts-gallium 16.15.0-1 [已安装]
        Evented I/O for V8 javascript (LTS release: Gallium)
-   yarn global add vue-cli 安装vue脚手架
-   
    ```
-
+   
+   ```js
+   安装vue脚手架
+   yarn global add @vue/cli
+   ```
+   
+   
+   
 3. 如上图，执行 sudo pacman -S nodejs-lts-gallium npm yarn 进行安装
 
 4. 如果要使用vue,则还需要执行 npm install -g @vue/cli 进行安装
