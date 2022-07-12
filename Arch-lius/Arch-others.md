@@ -493,6 +493,12 @@ gnome-boxes
 sudo pacman -S gnome-boxes
 ```
 
+##### 微信开发者工具
+
+```js
+yay wechat-devtool
+```
+
 #### 忘记密码
 
 1. 重新启动或打开Arch服务器系统。默认情况下，将首先选择第一个栏目
