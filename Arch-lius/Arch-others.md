@@ -502,6 +502,12 @@ sudo pacman -S gnome-boxes
 yay wechat-devtool
 ```
 
+##### 截图工具
+
+```js
+sudo pacman -S flameshot
+```
+
 #### 忘记密码
 
 1. 重新启动或打开Arch服务器系统。默认情况下，将首先选择第一个栏目
