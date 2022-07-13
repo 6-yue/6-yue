@@ -69,9 +69,9 @@ systemctl stop refector.service
 
 1. ```javascript
    // 必须的基础包
-   pacstrap /mnt base base-devel linux linux-headers linux-firmware e2fsprogs #base-devel在AUR包的安装是必须的
+   pacstrap /mnt base base-devel linux linux-headers linux-firmware #base-devel在AUR包的安装是必须的
    // 必须的功能性软件
-   pacstrap /mnt dhcpcd iwd vim bash-completion   #一个有线所需(iwd也需要dhcpcd) 一个无线所需 一个编辑器 一个补全工具
+   pacstrap /mnt dhcpcd vim bash-completion networkmanager  #一个有线所需(iwd也需要dhcpcd) 一个无线所需 一个编辑器 一个补全工具
    ```
 
 #### 生成文件系统表
