@@ -31,10 +31,21 @@
 </template>
 
 <script>
+import { onMounted } from 'vue'
+import axios from 'axios'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  setup () {
+    onMounted (() => {
+      axios.get('http://localhost:8089').then(res => {
+        console.log(res)
+      },err => {
+        console.log(err)
+      })
+    })
   }
 }
 </script>
