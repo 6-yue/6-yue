@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>防抖-节流</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 200px;
+      background: #f33;
+    }
+  </style>
+</head>
+<body>
+  <h2>深入js防抖与节流</h2>
+  <input type="text" placeholder="输入数据">
+  <div class="box"></div>
+  <script>
+    let telInput = document.querySelector('input')
+    telInput.addEventListener('input', antiShake(demo, 2000))
+    // 防抖封装
+    function antiShake(fn, wait) {
+      let timer = null
+      return args => {
+        if (timer) clearTimeout(timer)
+        timer = setTimeout(fn, wait);
+      }
+    }
+    function demo () {
+      console.log('发起请求')
+    }
+    // 节流 => 一定时间内只调用一次
+    let box = document.querySelector('.box')
+    box.addEventListener('mousemove', throttle(demo, 2000))
+    function throttle(event, time) {
+      let timer1 = null
+      return function() {
+        if (!timer1) {
+          timer1 = setTimeout(() => {
+            event();
+            timer1 = null
+          }, time)
+        }
+      }
+    }
+  </script>
+</body>
+</html>
