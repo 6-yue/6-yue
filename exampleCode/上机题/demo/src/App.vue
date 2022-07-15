@@ -14,8 +14,7 @@ export default {
     onMounted(() => {
       axios.get('/api').then(res => {
         console.log(res,Date.parse(new Date()))
-        count.value = Base64.decode(res.data).replace(/</g,'<br/>').replace(/[n|%|@|$|&|^|`|\\|']/g,'').replace(/[0-9]{10}/g,new Date().toLocaleString())
-        
+        count.value = Base64.decode(res.data).replace(/</g,'<br/>').replace(/[n|%|@|$|&|^|`|\\|']/g,'') // replace(/[0-9]{10}/g, '')
       },err => {
         console.log(err)
       })
