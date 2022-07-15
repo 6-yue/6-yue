@@ -1,5 +1,6 @@
 <template>
-  <div :v-html="count"></div>
+  <!-- <div>{{ count }}</div> -->
+  <div v-html="count"></div>
 </template>
 
 <script>
@@ -13,7 +14,7 @@ export default {
     onMounted(() => {
       axios.get('/api').then(res => {
         console.log(res)
-        count.value = Base64.decode(res.data)
+        count.value = Base64.decode(res.data).replace(/</g,'<br/>').replace(/[n|%|@|$|&|^|`|\\|']/g,'')
       },err => {
         console.log(err)
       })
