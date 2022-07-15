@@ -508,6 +508,41 @@ yay wechat-devtool
 sudo pacman -S flameshot
 ```
 
+##### qumu
+
+```js
+lscpu
+zgrep CONFIG_KVM /proc/config.gz
+#安装套件(仅适用于Manjaro / Arch Linux)
+sudo pacman -S qemu \
+libvirt \
+virt-manager \
+virt-viewer \
+archlinux-keyring \
+ebtables \
+dnsmasq \
+bridge-utils \
+openbsd-netcat \
+edk2-ovmf
+#调整权限
+sudo vim /etc/polkit-1/rules.d/50-libvirt.rules
+填入以下内容：
+/* Allow users in kvm group to manage the libvirt
+daemon without authentication */
+polkit.addRule(function(action, subject) {
+ if (action.id == "org.libvirt.unix.manage" &&
+  subject.isInGroup("kvm")) {
+   return polkit.Result.YES;
+ }
+});
+
+#调整权限 & 设定服务自动启动
+sudo usermod -a -G kvm $(whoami)
+sudo systemctl enable libvirtd.service
+sudo systemctl start libvirtd.service
+sudo systemctl start virtlogd.service
+```
+
 #### 忘记密码
 
 1. 重新启动或打开Arch服务器系统。默认情况下，将首先选择第一个栏目
@@ -529,6 +564,8 @@ sudo pacman -S flameshot
 #### 调整CPU
 
 ```js
+使用 cpupower 需要提前进行安装
+sudo pacman -S cpupower
 cpupower 是一组为辅助 CPU 调频而设计的用户空间工具。linux内核支持调节CPU主频，降低功耗，已到达节能的效果。对于移动设备和笔记本来说，在没有接通电源的时候，续航是很重要的。
 
 通过选择系统空闲状态不同的电源管理策略，可以实现不同程度降低服务器功耗。但是，更低的功耗策略意味着 CPU 唤醒更慢对性能影响更大。对于对时延和性能要求高的应用。
