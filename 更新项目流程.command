@@ -1,4 +1,4 @@
 #! /bin/bash
 git add .
-git commit -m "更新数据"
+git commit -m "update-data"
 git push
