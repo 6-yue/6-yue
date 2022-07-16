@@ -1,5 +1,4 @@
 <template>
-  <!-- <div>{{ count }}</div> -->
   <div v-html="count"></div>
 </template>
 
