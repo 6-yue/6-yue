@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写Ajax</title>
+</head>
+<body>
+  <script>
+    // 1.创建 XMLHttpRequest 对象
+    const xhr = new XMLHttpRequest()
+    // 2.调用open方法，设置请求方式和请求地址
+    // 第一个参数：请求方式
+    // 第二个参数：请求地址
+    xhr.open('GET','http://liulongbin.top:3009/api/get')
+    // 3.调用send方法，发起请求
+    xhr.send()
+    // 4.监听事件(两种形式),获取服务器返回的数据
+    // load事件是后台返回数据全部加载完毕的事件
+    // xhr.addEventListener('load', function () {
+    //   // 获取服务器返回的结果
+    //   console.log(xhr.response)
+    // })
+
+    // 第二种形式
+    xhr.addEventListener('read')
+  </script>
+</body>
+</html>
