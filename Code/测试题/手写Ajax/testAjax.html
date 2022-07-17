@@ -9,12 +9,21 @@
   <script>
     // 1.创建 XMLHttpRequest 对象
     const xhr = new XMLHttpRequest()
+    // readystate = 0
+
     // 2.调用open方法，设置请求方式和请求地址
     // 第一个参数：请求方式
     // 第二个参数：请求地址
-    xhr.open('GET','http://liulongbin.top:3009/api/get')
+    // xhr.open('GET','http://liulongbin.top:3009/api/get')
+    xhr.open('GET','https://api.oioweb.cn/')
+    // readystate = 1
+
     // 3.调用send方法，发起请求
     xhr.send()
+    // readystate = 2
+
+    // readystate = 3,数据传输过程中
+
     // 4.监听事件(两种形式),获取服务器返回的数据
     // load事件是后台返回数据全部加载完毕的事件
     // xhr.addEventListener('load', function () {
@@ -26,7 +35,10 @@
     // readystate 属性，当这个属性改变的时候，触发readystatechange事件
     // readystate 是什么？表示ajax请求的状态码
     xhr.addEventListener('readystatechange', function () {
-      console.log(xhr.response)
+      // readystate = 4,表示传输数据完毕
+      if(xhr.readyState === 4) {
+        console.log(xhr.response)
+      }
     })
   </script>
 </body>
