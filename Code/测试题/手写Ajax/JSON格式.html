@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON格式</title>
+</head>
+<body>
+  <script>
+    // 用字符串表示对象或数组就是JSON
+    // 1.key必须用双引号包裹
+    // 2.value 必须是字符串(必须用双引号包裹)、数字、布尔值、null、数组、对象
+    const obj = '{"name":"zs","age":18,"isOver":false}'
+    const arr = '["abc",18,{"name":"zs"}]'
+    console.log(obj,arr)
+    // 将JSON数据转换成可能操作的对象或数组
+    console.log(JSON.parse(obj),JSON.parse(arr))
+  </script>
+</body>
+</html>
