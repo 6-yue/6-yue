@@ -23,7 +23,11 @@
     // })
 
     // 第二种形式
-    xhr.addEventListener('read')
+    // readystate 属性，当这个属性改变的时候，触发readystatechange事件
+    // readystate 是什么？表示ajax请求的状态码
+    xhr.addEventListener('readystatechange', function () {
+      console.log(xhr.response)
+    })
   </script>
 </body>
 </html>
