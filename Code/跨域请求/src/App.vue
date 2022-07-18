@@ -1,5 +1,6 @@
 <template>
   <div v-html="count"></div>
+  <!-- <div v-for="(item,index) in count" :key="index" v-html="item.content"></div> -->
 </template>
 
 <script>
@@ -17,6 +18,12 @@ export default {
       },err => {
         console.log(err)
       })
+      // axios.get('api/v1/topics').then(res => {
+      //   console.log(res,Date.parse(new Date()))
+      //   count.value = res.data.data
+      // },err => {
+      //   console.log(err)
+      // })
     })
     return {
       count

@@ -6,6 +6,7 @@ module.exports = defineConfig({
     proxy: {
       '/api': {
         target: 'https://jyt.capcloud.com.cn/test.php',
+        // target: 'https://www.vue-js.com',
         changeOrigin: true,
         pathRewite: {
           "^/api": ''
