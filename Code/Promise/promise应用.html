@@ -7,7 +7,7 @@
 </head>
 <body>
   <script>
-    let isForget =true;
+    let isForget =false;
     let getLv = new Promise((resolve, reject) => {
       if(isForget){
         let lv = {
@@ -20,10 +20,33 @@
         reject(err)
       }
     })
-    let testFn = function() {
-      getLv.then((fulfilled) => {
+    // let testFn = function() {
+    //   getLv.then((fulfilled) => {
+    //     console.log(fulfilled)
+    //   }).catch((rejected)=> {
+    //     console.log(rejected.message)
+    //   })
+    // }
+    // testFn()
+
+    let buyLip = (lv) => {
+      let lip = {
+        brand: 'koki',
+        color: 'white'
+      }
+      let msg = {
+        message: '我买的口红是' + lip.brand + '搭配我的' + lv.color,
+        lip: lip,
+        lv: lv
+      }
+      return Promise.resolve(msg)
+    }
+    let testFn = () => {
+      getLv
+      .then(buyLip)
+      .then((fulfilled) => {
         console.log(fulfilled)
-      }).catch((rejected)=> {
+      }).catch((rejected) => {
         console.log(rejected.message)
       })
     }
