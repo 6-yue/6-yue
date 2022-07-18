@@ -1,0 +1,41 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手写Promise</title>
+</head>
+<body>
+  <h1>手与一个promise</h1>
+  <script>
+    function myPromise(excuter) {
+      // 1.执行结构
+      let self = this;
+      self.status = 'pending' // 状态
+      self.value = null // 成功的值
+      self.reason = null // 失败原因
+      // 成功的回调
+      function resolve() {
+
+      }
+      // 失败的回调
+      function reject() {
+
+      }
+      // 3.执行一遍
+      try {
+        excuter(resolve, reject)
+      } catch (err) {
+        reject(err)
+      }
+    }
+    // 2.then
+    myPromise.prototype.then = function () {
+      
+    }
+    let demo = new myPromise((resolve, reject) => {
+      console.log('雷电将军')
+    })
+  </script>
+</body>
+</html>
