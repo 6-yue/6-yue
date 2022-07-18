@@ -14,13 +14,21 @@
       self.status = 'pending' // 状态
       self.value = null // 成功的值
       self.reason = null // 失败原因
-      // 成功的回调
-      function resolve() {
 
+      // 4.判断状态，做相应处理
+      // 成功的回调
+      function resolve(value) {
+        if(self.status === 'pending') {
+          self.value = value; // 保存成功的结果
+          self.status = 'fulfilled'
+        }
       }
       // 失败的回调
-      function reject() {
-
+      function reject(reason) {
+        if(self.status === 'pending') {
+          self.reason = reason; // 保存成功的结果
+          self.status = 'rejected'
+        }
       }
       // 3.执行一遍
       try {
@@ -34,7 +42,7 @@
       
     }
     let demo = new myPromise((resolve, reject) => {
-      console.log('雷电将军')
+      console.log('许以臣民一梦')
     })
   </script>
 </body>
