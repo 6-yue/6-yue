@@ -472,6 +472,16 @@ sudo pip install -i https://pypi.tuna.tsinghua.edu.cn/simple django
 ```
 
 ```js
+// 使用 django-admin 来创建 HelloWorld 项目：
+django-admin startproject HelloWorld
+// 进入项目，运行项目
+cd HelloWorld
+python3 manage.py runserver 0.0.0.0:8000
+// 运行项目报错，执行下述命令
+python manage.py migrate
+```
+
+```js
 // 设为默认
 
 // 升级 pip 到最新的版本 (>=10.0.0) 后进行配置：
@@ -483,18 +493,6 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
 ```
-
-```js
-// 使用 django-admin 来创建 HelloWorld 项目：
-django-admin startproject HelloWorld
-// 进入项目，运行项目
-cd HelloWorld
-python3 manage.py runserver 0.0.0.0:8000
-// 运行项目报错，执行下述命令
-python manage.py migrate
-```
-
-
 
 ##### 迅雷
 
