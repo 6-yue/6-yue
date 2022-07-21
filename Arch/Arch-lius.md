@@ -322,13 +322,48 @@ sudo shutdown now
 
 3. arch打包的Code-OSS默认不使用官方市场，可以手动修改`/usr/lib/code/product.json`使用官方市场，**修改**这个字段：
 
-4. ```js
-   "extensionsGallery": {
-         "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
-         "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
-         "itemUrl": "https://marketplace.visualstudio.com/items"
-   }
-   ```
+   1. ```js
+      "extensionsGallery": {
+            "serviceUrl": "https://marketplace.visualstudio.com/_apis/public/gallery",
+            "cacheUrl": "https://vscode.blob.core.windows.net/gallery/index",
+            "itemUrl": "https://marketplace.visualstudio.com/items"
+      }
+      ```
+
+4. settings.json 修改code编辑器的配置信息
+
+   1. ```js
+      {
+        "workbench.startupEditor": "none",
+        "window.zoomLevel": -1,
+        "editor.tabSize": 2,
+        "liveServer.settings.donotShowInfoMsg": true,
+        "explorer.confirmDelete": false,
+        // 保存的时候用使用prettier进行格式化
+        "editor.formatOnSave": true,
+        // 默认使用prittier作为格式化工具
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        // 不要有分号
+        "prettier.semi": false,
+        // 使用单引号
+        "prettier.singleQuote": true,
+        // 在 js 文件中启用 emmet 语法
+        "emmet.includeLanguages": {
+          "javascript": "javascriptreact"
+        },
+        // 按tab键展开 emmet 语法
+        "emmet.triggerExpansionOnTab": true,
+        "javascript.updateImportsOnFileMove.enabled": "always"
+      }
+      
+      ```
+
+   2. 可能有别的插件需要安装
+
+      1. Chinese 汉化
+      2. Live Server 同步刷新
+      3. Prettier 格式化工具
+
 
 ##### fcitx
 
