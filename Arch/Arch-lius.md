@@ -417,6 +417,21 @@ sudo shutdown now
 
 1. sudo pacman -S netease-cloud-music
 
+2. 修改字体太小解决方案
+
+3. 去修改：  vim  /opt/netease/netease-cloud-music/netease-cloud-music.bash 
+
+4. 修改后（最后一行中加入一段配置 **-force-device-scale-factor=1.6** ）：
+
+5. ```js
+   #!/bin/sh
+   HERE="$(dirname "$(readlink -f "${0}")")"
+   export LD_LIBRARY_PATH="${HERE}"/libs
+   export QT_PLUGIN_PATH="${HERE}"/plugins
+   export QT_QPA_PLATFORM_PLUGIN_PATH="${HERE}"/plugins/platforms
+   exec "${HERE}"/netease-cloud-music -force-device-scale-factor=1.6  $@
+   ```
+
 ##### 浏览器
 
 1. sudo pacman -S chromium
@@ -620,4 +635,3 @@ cpupower设置performance：
 
 [root@lmlphp.com ~]# cpupower frequency-set -g performance
 ```
-
