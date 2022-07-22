@@ -5,6 +5,7 @@ let r = arr.filter((item) => {
 console.log(r)
 
 // 数组去重
+// 去除重复元素依靠的是indexOf总是返回第一个元素的位置,后续的重复元素位置与indexOf返回的位置不相等,因此被filter滤掉了.
 let r1,
   arr1 = [
     'apple',
