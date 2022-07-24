@@ -10,7 +10,7 @@
 
 **目标**：能够说出jsx是什么
 
-**内容**:
+**内容**：
 
 `createElement()` 创建 React 元素的问题
 
@@ -24,11 +24,11 @@
 </figure>
 JSX简介
 
-- `JSX`是`JavaScript XML`的简写，表示了在Javascript代码中写XML(HTML)格式的代码
+- `JSX`是`JavaScript XML`的简写，表示了在JavaScript代码中写XML(HTML)格式的代码
 
 - 优势：声明式语法更加直观，与HTML结构相同，降低学习成本，提高开发效率
 
- **JSX是react的核心内容**
+ **JSX是 React 的核心内容**
 
 注意：*JSX 不是标准的 JS 语法，是 JS 的语法扩展。脚手架中内置的 [@babel/plugin-transform-react-jsx](@babel/plugin-transform-react-jsx) 包，用来解析该语法*
 
@@ -36,8 +36,9 @@ JSX简介
 
 在 babel 的试一试中，可以通过切换 React Runtime 来查看：
 
-1. Classic => React.createElement：注意这种方式，需要依赖于 React，也就是只要在代码中写 JSX 就必须导入 React 包
+1. Classic => React.createElement：注意这种方式，需要依赖于 React，也就是只要在代码中写 JSX 就必须导入 React 包（旧）
 2. **Automatic => _jsxRuntime：不依赖于 React 包，因此，代码中可以省略 React 包的导入【最新的脚手架已经默认值采用这种形式】**
+   - [React 17 引入新的 JSX 转化](https://reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)
 
 **总结**：
 
@@ -120,6 +121,19 @@ const jsx = createJSX()
 "prettier.singleQuote": true,
 ```
 
+## JSX 标签自动补全
+
+无需安装额外插件，直接在设置中添加如下设置即可：
+
+```json
+// 在 js 文件中启用 emmet 语法 
+"emmet.includeLanguages": {
+  "javascript": "javascriptreact"
+},
+// 按tab键展开 emmet 语法
+"emmet.triggerExpansionOnTab": true,
+```
+
 ## JSX中使用JS表达式
 
 **目标**：能够在JSX中使用JS表达式
@@ -129,10 +143,10 @@ const jsx = createJSX()
 - JS 表达式是可以被求值的代码，JavaScript 引擎会将其计算出一个结果（值）
   - 特点：==有值== 或者说 能够计算出一个值
 
-+ JS 表达式，任意数据，或者任何数据与运算符的组合，都可以构成一个表达式
++ JS 表达式，任意数据，或者任意数据与运算符的组合，都可以构成一个表达式
   + 任意数据：字符串、数值、布尔值、null、undefined、object（ [] / {} ）等
   + 任意数据与运算符的组合：1 + 2、'abc'.split('')、['a', 'b'].join('-') 等
-  + 验证是不是 JS 表达式的技巧：看内容能不能作为方法的参数，比如，`console.log( 表达式 )`
+  + **验证是不是 JS 表达式的技巧：看内容能不能作为方法的参数，比如，`console.log( 表达式 )`**
 + 在 JSX 中使用表达式语法：`{ JS 表达式 }`
   - 比如，`<h1>你好，我叫 {name}</h1>`
 
@@ -141,6 +155,7 @@ const jsx = createJSX()
 ```jsx
 const name = 'zs'
 const age = 18
+
 const title = (
   <h1>
     姓名：{name}, 年龄：{age}
@@ -229,7 +244,7 @@ const title = <h1>JSX 做为表达式：{span}</h1>
 + 通过判断 `if/else` 控制 
 
 ```jsx
-const isLoding = false
+const isLoading = true
 const loadData = () => {
   if (isLoding) {
     return <div>数据加载中.....</div>
@@ -274,19 +289,6 @@ const title = <div>条件渲染：{loadData()}</div>
 
 const isLogin = false
 const el = isLogin ? <div>欢迎你，尊贵的v10用户</div> : <div>你好，请先登录</div>
-```
-
-## VSCode配置自动补全
-
-无需安装额外插件，直接在设置中添加如下设置即可：
-
-```json
-// 在 js 文件中启用 emmet 语法 
-"emmet.includeLanguages": {
-  "javascript": "javascriptreact"
-},
-// 按tab键展开 emmet 语法
-"emmet.triggerExpansionOnTab": true,
 ```
 
 ## 列表渲染
@@ -347,9 +349,9 @@ const dv = (
 // 需求：将 list 数据按照以下模板渲染成 ul 列表
 
 const list = [
-  { id: 1, name: '上海黑马82期', salary: 11000 },
-  { id: 2, name: '上海黑马83期', salary: 12000 },
-  { id: 3, name: '上海黑马89期', salary: 18000 }
+  { id: 1, name: '北京黑马142期', salary: 11000 },
+  { id: 2, name: '北京黑马143期', salary: 12000 },
+  { id: 3, name: '北京黑马144期', salary: 18000 }
 ]
 
 // 模板：
@@ -382,6 +384,9 @@ JSX 添加样式的方式有以下两种：
 + 行内样式-style
 
 ```jsx
+// style 的值包含了两个 {}
+// 	外层{} 表示：在 JSX 中使用 JS 表达式，也就是要在 JSX 中使用 js 代码了
+//  内层{} 表示：JS 对象
 const dv = (
   <div style={ { color: 'red', backgroundColor: 'pink', height: 100 } }>style样式</div>
 )
@@ -403,7 +408,7 @@ const dv = <div className="title">style样式</div>
 
 ```jsx
 // JSX
-<div>{ JS 表达式}</div>
+<div>{ JS 表达式 }</div>
 ```
 
 ## 综合案例-B站评论列表
@@ -509,7 +514,7 @@ import classNames from 'classnames'
 <div className={classNames('like', item.attitude === 1 && 'liked')}></div>
 ```
 
-- 推荐在项目中使用 `classnames` 库：`yarn add classnames`
+- 推荐在项目中使用 `classnames` 库：`yarn add classnames` 或者 `npm i classnames`
 
 ### 3 时间处理
 
@@ -517,7 +522,7 @@ import classNames from 'classnames'
 
 **步骤：**
 
-1. 安装dayjs：`yarn add dayjs`
+1. 安装dayjs：`npm i dayjs`
 2. 使用dayjs进行格式化
 
 **核心代码：**

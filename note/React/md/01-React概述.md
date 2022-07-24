@@ -42,7 +42,7 @@
 // JSX
 const dv = (
 	<div className="app">
-    <h1>Hello React! 动态数据:{count}</h1>
+    <h1>Hello React! 动态数据: {count}</h1>
   </div>
 )
 
@@ -101,7 +101,7 @@ for (let i = 0; i < arr.length; i++) {
 - 命令：`npx create-react-app react-basic`（react-basic 表示项目名称，可以修改）
 - 启动项目：`yarn start` or `npm start`
 
-+ npx是 npm v5.2 版本新添加的命令，用来简化 npm 中工具包的使用
++ npx 是 npm v5.2 版本新添加的命令，用来简化 npm 中工具包的使用
   - 原始：1 全局安装 `npm i -g create-react-app` 2 在通过脚手架的命令来创建 React 项目
   - 现在：npx 调用最新的 create-react-app 直接创建 React 项目
 
@@ -111,7 +111,7 @@ for (let i = 0; i < arr.length; i++) {
 
 **内容**：
 
-1. 导入`react`和`react-dom`   
+1. 导入`react`和`react-dom` 
 2. 创建 React 元素
 3. 渲染 React 元素到页面中
 
@@ -140,6 +140,8 @@ root.render(title)
 
 ```jsx
 <div id="box" class="demo">这是一个react案例</div>
+
+React.createElement('div', { id: 'box', class: 'demo' }, '这是一个react案例')
 ```
 
 2. 创建结构（2）
@@ -150,6 +152,15 @@ root.render(title)
   <li>橘子</li>
   <li>苹果</li>
 </ul>
+
+React.createElement(
+  'ul',
+  { className: 'list' },
+  // 元素节点，值也是 React.createElement() 创建的元素
+  React.createElement('li', null, '香蕉'),
+  React.createElement('li', null, '橘子'),
+  React.createElement('li', null, '苹果')
+)
 ```
 
 ## React 插件的安装

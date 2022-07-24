@@ -1,0 +1,15 @@
+body {
+  margin: 0;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+  color: #222;
+}
+
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
