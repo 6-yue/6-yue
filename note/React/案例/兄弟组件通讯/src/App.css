@@ -1,0 +1,15 @@
+.app {
+  padding: 10px;
+  border: 1px solid #000;
+}
+
+.jack {
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid green;
+}
+
+.rose {
+  padding: 5px;
+  border: 1px solid pink;
+}
