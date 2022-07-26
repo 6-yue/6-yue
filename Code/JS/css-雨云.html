@@ -25,7 +25,7 @@
         position: absolute;
         top: -20px;
         left: 10px;
-        width: 35px;
+        width: 20px;
         height: 30px;
         background: #fff;
         border-radius: 50%;
@@ -62,24 +62,17 @@
   </head>
   <body>
     <div class="container">
-      <div class="rain">
-        <span style="--speed: 11"></span>
-        <span style="--speed: 10"></span>
-        <span style="--speed: 13"></span>
-        <span style="--speed: 20"></span>
-        <span style="--speed: 15"></span>
-        <span style="--speed: 19"></span>
-        <span style="--speed: 17"></span>
-        <span style="--speed: 12"></span>
-        <span style="--speed: 15"></span>
-        <span style="--speed: 20"></span>
-        <span style="--speed: 7"></span>
-        <span style="--speed: 15"></span>
-        <span style="--speed: 19"></span>
-        <span style="--speed: 13"></span>
-        <span style="--speed: 16"></span>
-        <span style="--speed: 12"></span>
-      </div>
+      <div class="rain"></div>
     </div>
+    <script>
+      for (let i = 0; i < 20; i++) {
+        document
+          .querySelector('.rain')
+          .appendChild(document.createElement('span'))
+      }
+      document.querySelectorAll('span').forEach((item) => {
+        item.style = '--speed: ' + Math.floor(Math.random() * (20 - 1) + 1)
+      })
+    </script>
   </body>
 </html>
