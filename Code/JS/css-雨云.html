@@ -1,0 +1,85 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>雨云</title>
+    <style>
+      body {
+        background-color: #212121;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 90vh;
+      }
+      .container {
+        position: relative;
+        width: 100px;
+        height: 30px;
+        background: #fff;
+        border-radius: 100px;
+      }
+      .container::before {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 10px;
+        width: 35px;
+        height: 30px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 40px 0 0 20px #fff;
+      }
+      .rain {
+        position: relative;
+        display: flex;
+        z-index: 1;
+      }
+      .rain span {
+        position: relative;
+        width: 10px;
+        height: 5px;
+        background: #fff;
+        margin: 10px 2px;
+        border-radius: 50%;
+        animation: rain 5s linear infinite;
+        animation-duration: calc(20s / var(--speed));
+        transform-origin: bottom;
+      }
+      @keyframes rain {
+        0% {
+          transform: translateY(0);
+        }
+        70% {
+          transform: translateY(100px) scale(1);
+        }
+        100% {
+          transform: translateY(100px) scale(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="rain">
+        <span style="--speed: 11"></span>
+        <span style="--speed: 10"></span>
+        <span style="--speed: 13"></span>
+        <span style="--speed: 20"></span>
+        <span style="--speed: 15"></span>
+        <span style="--speed: 19"></span>
+        <span style="--speed: 17"></span>
+        <span style="--speed: 12"></span>
+        <span style="--speed: 15"></span>
+        <span style="--speed: 20"></span>
+        <span style="--speed: 7"></span>
+        <span style="--speed: 15"></span>
+        <span style="--speed: 19"></span>
+        <span style="--speed: 13"></span>
+        <span style="--speed: 16"></span>
+        <span style="--speed: 12"></span>
+      </div>
+    </div>
+  </body>
+</html>
