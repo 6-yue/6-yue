@@ -38,11 +38,11 @@
       }
       .rain span {
         position: relative;
-        width: 10px;
+        width: 1px;
         height: 5px;
         background: #fff;
         margin: 10px 2px;
-        border-radius: 50%;
+        /* border-radius: 50%; */
         animation: rain 5s linear infinite;
         animation-duration: calc(20s / var(--speed));
         transform-origin: bottom;
@@ -65,7 +65,7 @@
       <div class="rain"></div>
     </div>
     <script>
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 24; i++) {
         document
           .querySelector('.rain')
           .appendChild(document.createElement('span'))

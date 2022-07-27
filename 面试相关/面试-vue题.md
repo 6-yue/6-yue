@@ -1,4 +1,4 @@
-### 组件通信方式
+### vue组件通信方式
 
 1. props / $emit
    父组件通过props的方式向子组件传递数据，而通过$emit 子组件可以向父组件通信。
@@ -56,3 +56,27 @@ vue 中使用了哪些设计模式
 6. 使用cdn的方式外部加载一些资源，比如vue-router、axios等Vue的周边插件，在webpack.config.js里面，externals里面设置一些不必要打包的外部引用模块。然后在入门文件index.html里面通过cdn的方式去引入需要的插件。
 7. 减少图片使用，因为对于网页来说，图片会占用很大一部分体积，所以，优化图片的操作可以有效的来加快加载速度。可以用一些css3的效果来代替图片效果，或者使用雪碧图来减少图片的体积。
 8. 按需引入，咱们使用的一些第三方库可以通过按需引入的方式加载。避免引入不需要使用的部分，无端增加项目体积。比如在使用element-ui库的时候，可以只引入需要用到的组件。
+
+### vue父子组件生命周期执行顺序
+
+一.vue常用生命周期：
+
+1. beforeCreate: data和el均未初始化，值为undefined
+2. created: Vue 实例观察的数据对象data已经配置好，已经可以得到data的值且data已经具有响应式，但Vue 实例使?的根 DOM 元素el还未初始化
+3. beforeMount: 在模板编译之后,渲染之前触发;data和el均已经初始化，但此时el并没有渲染进数据，el的值为“虚拟”的元素节点
+4. mounted: 此时el已经渲染完成并挂载到实例上;
+5. beforeUpdate: 数据更新时调?,发?在虚拟DOM重新渲染和打补丁之前;可以在该?命周期中进?步的更改状态,不会触发附加的重渲染过程;
+6. updated: 在数据改变后,模板改变后触发; 数据更改导致的虚拟DOM重新渲染和打补丁,在这之后调?该?命周期函数; 调?该?命周期函数时,组件DOM已经更新,可以执?依赖DOM的操作;
+7. activated: 使? keep-alive 时调?
+8. deactivated: 使? keep-alive 时调?
+9. beforeDestroy: 组件卸载前触发,可以在此时清理事件,计时器或者取消订阅操作;
+10. destoryed: 实例销毁之后调?; 调?后, vue实例指?的所有东西都会解除绑定,所有的事件监听器会被?处,所有的?实例也会被销毁
+
+二. ??组件初始化时 ?命周期的执?顺序
+?beforeCreate -> ?created -> ?beforeMount -> ?beforeCreate -> ?created -> ?beforeMount -> ?mounted->?mounted
+三. ??组件数据更新时 ?命周期的执?顺序
+?beforeUpdate -> ?beforeUpdate -> ?updated -> ?updated
+四. ??组件销毁时 ?命周期的执?顺序
+?beforeDestroy -> ?beforeDestroy -> ?destroyed -> ?destroyed
+————————————————
+
