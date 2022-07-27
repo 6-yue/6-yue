@@ -25,5 +25,7 @@
    1. reducer(函数)：更新状态
    2. store(仓库)：整合action和reducer
 
+## 难点
+
 1. useDispatch
    1. 使用这个hook能得到redux store的dispatch方法引用，通常用于"手动" dispatch action
