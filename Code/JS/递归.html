@@ -1,0 +1,27 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>递归</title>
+  </head>
+  <body>
+    <script>
+      // 递归求和
+      function Qh(n) {
+        // if (n == 1) return 1
+        // return n + Qh(n - 1)
+        return n == 1 ? 1 : n + Qh(n - 1)
+      }
+      console.log('1-6的和：' + Qh(6))
+
+      // 递归求积
+      function Jc(n) {
+        // if (n == 1) return 1
+        // return n * Jc(n - 1)
+        return n == 1 ? 1 : n * Jc(n - 1)
+      }
+      console.log('1-4的阶乘：' + Jc(4))
+    </script>
+  </body>
+</html>
