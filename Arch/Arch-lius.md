@@ -467,6 +467,10 @@ sudo shutdown now
    exec "${HERE}"/netease-cloud-music -force-device-scale-factor=1.2  $@
    ```
 
+##### QQ音乐
+
+1. yay -S qqmusic-bin
+
 ##### 浏览器
 
 1. sudo pacman -S chromium
