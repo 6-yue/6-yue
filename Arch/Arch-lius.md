@@ -447,6 +447,14 @@ sudo shutdown now
    3. git push -f origin 覆盖上传
    4. git push -u origin 正常上传
 
+##### 微信
+
+1. 安装
+   1. sudo pacman -S wine
+   2. yay -S deepin-wine-wechat
+2. 调整字体
+   1. 从windows下载字体到 `~/.deepinwine/Deepin-WeChat/drive_c/windows/Fonts/`
+
 
 ##### 网易云
 
