@@ -6,7 +6,7 @@
 
 **内容：**
 
-默认情况下，Redux 自身只能处理同步数据流。但是在实际项目开发中，状态的更新、获取，通常是使用异步操作来实现。
+默认情况下，Redux 自身只能处理同步数据流。但是在实际项目开发中，状态的更新、获取，通常是使用异步操作来实现
 
 - 问题：如何在 Redux 中进行异步操作呢? 
 - 回答：通过 Redux 中间件机制来实现
@@ -37,7 +37,7 @@ Redux 中间件作用：**处理具有副作用（side effect）的功能**，�
 
 <img src="images/redux中间件-触发时机2.jpg" style="width: 800px" />
 
-- 原理：封装了 redux 自己的 dispatch 方法
+- 中间件原理：封装了 redux 自己的 dispatch 方法
   - 没有中间件：`store.dispatch()` 就是 Redux 库自己提供的 dispatch 方法，用来发起状态更新
   - 使用中间件：`store.dispatch()` 就是中间件封装处理后的 dispatch，但是，最终一定会调用 Redux 自己的 dispatch 方法发起状态更新
 
@@ -111,7 +111,7 @@ dispatch({ type: 'counter/increment' })
 
 // 2 action creator
 const increment = payload => ({ type: 'counter/increment', payload })
-dispatch(increment(2))
+dispatch(increment(2)) // increment(2) => { type: 'counter/increment', payload: 2 }
 ```
 
 2. **使用 redux-thunk 中间件后，action 既可以是对象，又可以是函数**
@@ -121,13 +121,14 @@ dispatch(increment(2))
 // 使用 action creator 返回对象
 const increment = payload => ({ type: 'counter/increment', payload })
 // 分发同步 action
-dispatch(increment(2))
+dispatch(increment(2)) // => dispatch({ type: 'counter/increment', payload: 2 })
 
 // 2 函数：
 // 使用 action creator 返回函数
 const incrementAsync = () => {
   return (dispatch, getState) => {
     // ... 执行异步操作代码
+    setTimeout(() => {}, 2000)
   }
 }
 // 分发异步 action
@@ -217,6 +218,19 @@ export default store
 
 <img src="./images/ReduxAsyncDataFlow.gif" style="width: 800px" />
 
+从 React 组件开始  ==> Redux ==> React组件结束
+
+1. 在 React 组件中，点击按钮，触发了按钮的点击事件
+2. 在点击事件中，我们通过 `dispatch( thunk action )` 分发了一个 thunk action（异步操作）
+3. thunk 中间件就会调用 thunk action，调用的时候，会传入：dispatch 和 getState 两个参数
+4. 然后，执行 thunk action 中的异步代码
+5. 异步代码执行完成后，我们可以继续调用 `dispatch( 对象形式的action )`
+6. 当我们调用 dispatch 函数时，Redux 就会调用 reducer，调用方式：`reducer(redux自己维护的状态, dispatch时的action)`
+7. reducer 根据上一次的状态（state） 以及 当前要执行的动作（action），来计算出一个新的状态，并且返回这个新状态
+8. Redux 内部拿到这个新的状态，用这个状态来作为最新 Redux 状态值
+9. 由于 Redux 状态发生改变，所以，会通知 React 组件，来重新渲染 React 组件
+10. React 组件重新渲染，就会重新执行组件中的代码，这样，就可以拿到最新的 Redux 状态，从而来更新组件内容
+
 ## 了解：redux-thunk中间件原理
 
 **目标**：能够了解redux-thunk中间件的原理
@@ -224,6 +238,45 @@ export default store
 **内容**：
 
 - [redux-thunk@v2.3 源码链接](https://github.com/reduxjs/redux-thunk/blob/v2.3.0/src/index.js)
+
+```js
+// thunk 中间件的核心代码：
+
+const thunk = ({ dispatch, getState }) => next => action => {
+  // thunk 中间件会判断 action 是不是一个函数
+  if (typeof action === 'function') {
+    // 如果 action 是函数，就直接调用 action
+    return action(dispatch, getState);
+  }
+
+  // 继续调用下一个中间件
+  return next(action);
+};
+
+// ---
+
+// 我们自己创建的 thunk action 代码
+const toggleState = (id, goods_state) => {
+  // thunk action
+  return async (dispatch, getState) => {
+    await axios.patch(`http://localhost:8888/cart/${id}`, {
+      goods_state,
+    })
+
+    // 修改本地购物车数据
+    dispatch({
+      type: 'cart/toggle',
+      // 传递额外的数据
+      payload: {
+        id,
+        goods_state,
+      },
+    })
+  }
+}
+```
+
+
 
 ```js
 function createThunkMiddleware(extraArgument) {
@@ -268,6 +321,8 @@ dispatch(clearAllAsync()) // 对应上面第 8、9 行代码
 - 中间件修改了 store.dispatch，在分发动作和到达 reducer 之间提供了扩展
 - redux 中间件采用了 **洋葱模型** 来实现
 
+- [参考资料：两种中间件模型](https://www.jianshu.com/p/70fb2405b281)
+
 <figure class="third">
   <img src="./images/redux-中间件.png"  style="width: 600px; display: inline-block;" />
   <img src="./images/redux-中间件1.png" style="width: 540px; display: inline-block;" />
@@ -276,6 +331,15 @@ dispatch(clearAllAsync()) // 对应上面第 8、9 行代码
 - 自己实现记录日志的 redux 中间件：
 
 ```js
+const logger = store => next => action => {
+  console.log('prev state:', store.getState()) // 更新前的状态
+  // 记录日志代码
+  console.log('dispatching', action)
+  let result = next(action)
+  console.log('next state', store.getState()) // 更新后的状态
+  return result
+}
+
 // 简化写法：
 // store 表示：redux 的 store
 // next 表示：下一个中间件，如果只使用一个中间，那么 next 就是 store.dispatch（redux 自己的 dispatch 函数）

@@ -577,6 +577,18 @@ const App = () => {
 
 <img src="./images/ReduxDataFlow.gif" style="width: 800px" />
 
+**内容**：
+
+从 React 组件开始  ==> Redux ==> React组件结束
+
+1. 在 React 组件中，点击按钮，触发了按钮的点击事件
+2. 在点击事件中，我们通过 `dispatch({ type: 'increment' })` 分发了一个 action
+3. 当我们调用 dispatch 函数时，Redux 就会调用 reducer，调用方式：`reducer(redux自己维护的状态, dispatch时的action)`
+4. reducer 根据上一次的状态（state） 以及 当前要执行的动作（action），来计算出一个新的状态，并且返回这个新状态
+5. Redux 内部拿到这个新的状态，用这个状态来作为最新 Redux 状态值
+6. 由于 Redux 状态发生改变，所以，会通知 React 组件，来重新渲染 React 组件
+7. React 组件重新渲染，就会重新执行组件中的代码，这样，就可以拿到最新的 Redux 状态，从而来更新组件内容
+
 **总结**：
 
 - 任何一个组件都可以直接接入 Redux，也就是可以直接：1 修改 Redux 状态 2 接收 Redux 状态
