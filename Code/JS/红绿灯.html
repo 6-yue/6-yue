@@ -9,7 +9,7 @@
     <script>
       function delay(light) {
         return new Promise((resolve, reject) => {
-          console.log(light.color)
+          console.log(`现在是${light.color}${light.delay / 1000}秒变化`)
           setTimeout(() => {
             resolve()
           }, light.delay)
