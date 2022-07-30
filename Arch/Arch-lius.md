@@ -452,8 +452,13 @@ sudo shutdown now
 1. 安装
    1. sudo pacman -S wine
    2. yay -S deepin-wine-wechat
-2. 调整字体
+2. 中文字体为方框
    1. 从windows下载字体到 `~/.deepinwine/Deepin-WeChat/drive_c/windows/Fonts/`
+3. 字体小
+   1. WINEPREFIX=~/.deepinwine/Deepin-WeChat/ deepin-wine6-stable winecfg
+   2. 点击显示，调整屏幕分辨率为合适的数值。
+   3. 微信中，启用 `` 适配系统缩放比例 `` 选项(设置-->通用设置-->适配系统缩放比例)
+
 
 
 ##### 网易云
