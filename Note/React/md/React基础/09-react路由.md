@@ -60,7 +60,7 @@ const App = () => {
             component属性：展示的组件
             Route 组件写在哪，渲染出来的组件就展示在哪
           */}
-          <Route path="/first" component={First}></Route>
+          <Route path="/first" element={First}></Route>
         </Routes>
       </div>
     </Router>
@@ -101,6 +101,8 @@ const App = () => {
 
 **内容**：
 
+一个应用中可以使用多次 Routes 组件
+
 当 location 改变时，`<Routes>` 组件会查看其所有的 `<Route>` 子节点，找到最匹配的规则，然后渲染 element 指定的内容
 
 ## Route组件的说明
@@ -116,7 +118,7 @@ const App = () => {
 
 ```jsx
 // 使用 element 属性指定要渲染的组件
-<Route path="/search" element={Search} />
+<Route path="/search" element={<Search />} />
 ```
 
 注意：对于 Route 来说，如果路由规则匹配成功，就会渲染对应组件；否则，渲染 null 或者说不渲染任何内容（类似于 `if`）
