@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>token</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        justify-items: center;
+      }
+      .box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 200px;
+        min-height: 10px;
+        border-radius: 10px;
+        border: 1px dashed #33f;
+        background: skyblue;
+      }
+      input {
+        width: 120px;
+        border-radius: 10px;
+        padding: 2px 5px;
+      }
+      label {
+        margin: 0 10px 0 10px;
+      }
+      button {
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <label for="user"
+        >姓名：<input type="text" class="user" name="user"
+      /></label>
+      <label for="passwd">密码：<input type="text" class="passwd" /></label>
+      <button class="login">Login</button>
+      <button class="show">show</button>
+    </div>
+    <script>
+      let userM = document.querySelector('.user')
+      let passwdM = document.querySelector('.passwd')
+      let logIn = document.querySelector('.login')
+      let Show = document.querySelector('.show')
+      logIn.addEventListener('click', () => {
+        console.log(userM.value, passwdM.value)
+        const loginDate = {
+          user: userM.value.toString().trim(),
+          passwd: passwdM.value.toString().trim(),
+        }
+        localStorage.setItem('lius', JSON.stringify(loginDate))
+      })
+      Show.addEventListener('click', () => {
+        console.log(JSON.parse(localStorage.getItem('lius')))
+      })
+    </script>
+  </body>
+</html>
