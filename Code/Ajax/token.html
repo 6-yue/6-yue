@@ -21,7 +21,7 @@
         min-height: 10px;
         border-radius: 10px;
         border: 1px dashed #33f;
-        background: skyblue;
+        background: rgb(164, 212, 231);
       }
       input {
         width: 120px;
@@ -30,9 +30,15 @@
       }
       label {
         margin: 0 10px 0 10px;
+        color: violet;
       }
       button {
         margin-top: 5px;
+      }
+      .userPasswd {
+        width: 45%;
+        display: flex;
+        justify-content: space-between;
       }
     </style>
   </head>
@@ -42,8 +48,10 @@
         >姓名：<input type="text" class="user" name="user"
       /></label>
       <label for="passwd">密码：<input type="text" class="passwd" /></label>
-      <button class="login">Login</button>
-      <button class="show">show</button>
+      <div class="userPasswd">
+        <button class="login">Login</button>
+        <button class="show">show</button>
+      </div>
     </div>
     <script>
       let userM = document.querySelector('.user')
@@ -51,10 +59,13 @@
       let logIn = document.querySelector('.login')
       let Show = document.querySelector('.show')
       logIn.addEventListener('click', () => {
-        console.log(userM.value, passwdM.value)
+        console.log(
+          JSON.stringify(userM.value.trim()),
+          JSON.stringify(passwdM.value.trim())
+        )
         const loginDate = {
-          user: userM.value.toString().trim(),
-          passwd: passwdM.value.toString().trim(),
+          user: userM.value.trim(),
+          passwd: passwdM.value.trim(),
         }
         localStorage.setItem('lius', JSON.stringify(loginDate))
       })
