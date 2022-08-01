@@ -1,0 +1,36 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数组平铺</title>
+  </head>
+  <body>
+    <script>
+      let arr = [1, 2, [3, 4, [5, 6, [7, 8]]]] // 利用递归把arr转换成平铺的数组
+      // let arr = [1, 2, [3, 4, [5, 6]]]
+      let arr2 = []
+
+      function flat(arr) {
+        // for (let i = 0; i < arr.length; i++) {
+        //   if (Array.isArray(arr[i])) {
+        //     flat(arr[i])
+        //   } else {
+        //     arr2.push(arr[i])
+        //   }
+        // }
+        // other
+        arr.forEach((item) => {
+          if (Array.isArray(item)) {
+            flat(item)
+          } else {
+            arr2.push(item)
+          }
+        })
+      }
+
+      flat(arr)
+      console.log(arr2)
+    </script>
+  </body>
+</html>
