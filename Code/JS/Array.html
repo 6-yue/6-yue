@@ -1,0 +1,26 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array</title>
+  </head>
+  <body>
+    <script>
+      let userList = [
+        { name: 'zhangsan', age: 18 },
+        { name: 'lisi', age: 22 },
+        { name: 'wangwu', age: 18 },
+        { name: 'zhaoliu', age: 22 },
+        { name: 'lilei', age: 23 },
+        { name: 'hanmeimei', age: 27 },
+      ]
+      let names = userList.map((item) => item.name)
+      let ages = userList.map((item) => item.age)
+      console.log(`姓名：${names}\n年龄：${ages}`)
+      userList.forEach((item) => {
+        console.log(`姓名是：${item.name},年龄是：${item.age}`)
+      })
+    </script>
+  </body>
+</html>
