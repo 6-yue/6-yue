@@ -5,13 +5,14 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'https://jyt.capcloud.com.cn/test.php',
+        target: 'https://www.tianqiapi.com/',
+        // target: 'https://jyt.capcloud.com.cn/test.php',
         // target: 'https://www.vue-js.com',
         changeOrigin: true,
         pathRewite: {
-          "^/api": ''
-        }
-      }
-    }
+          '^/api': '',
+        },
+      },
+    },
   },
 })
