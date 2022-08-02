@@ -78,6 +78,8 @@ obj[uniqKey] = ''
 console.log( obj[uniqKey] )
 
 // 等等...
+
+console.log(Symbol() === Symbol()) // false
 ```
 
 ##  数组类型
@@ -143,6 +145,10 @@ let arr2: CustomArray = ['x', 'y', 6, 7]
 
 ```ts
 // 创建一个自定义数组类型，数组元素可以是：布尔值 或 字符串数组
+
+type BoolStringArray = (boolean | string)[]
+
+let a: BoolStringArray = [false, '']
 ```
 
 ---
@@ -174,7 +180,7 @@ const add = (num1: number, num2: number): number => {
 }
 ```
 
-2. 同时指定参数、返回值的类型:
+2. 同时指定参数、返回值的类型：
    - 解释：当函数作为表达式时，可以通过类似箭头函数形式的语法来为函数添加类型
    - 注意：这种形式只适用于函数表达式
 
@@ -457,7 +463,7 @@ interface Point3D { x: number; y: number; z: number }
 
 使用接口继承，来简化：
 
-1. 使用 `extends`(继承)关键字实现了接口 Point3D 继承 Point2D
+1. 使用 `extends`(继承) 关键字实现了接口 Point3D 继承 Point2D
 2. 继承后，Point3D 就有了 Point2D 的所有属性和方法(此时，Point3D 同时有 x、y、z 三个属性)
 
 ```ts
@@ -599,6 +605,9 @@ const res = id(10)
 
 ```ts
 function id(value: any): any { return value }
+
+id(10)
+id('ab')
 ```
 
 - 这时候，就可以使用**泛型**来实现了
@@ -703,7 +712,11 @@ let str = id('a')
 /// <reference types="react-scripts" />
 ```
 
-## useState 泛型函数
+## React + TS
+
+useEffect hook 不涉及任何类型，在 TS 中的使用方式跟在 JS 中的使用方式相同
+
+### useState 基本使用
 
 **目标**：能够掌握useState在TS中的使用
 
@@ -738,26 +751,27 @@ const [name, setName] = useState('jack')
 
 *注意：如果 TS 自动推断出来的类型不准确，就需要明确指定泛型类型*
 
-## useState 明确指定泛型类型
+### useState 明确指定泛型类型
 
 **目标：**能够明确指定useState的泛型类型
 
 **内容：**
 
-- 需求：获取频道列表数据并渲染
-  + 频道列表数据的接口：http://geek.itheima.net/v1_0/channels
+注意：**useState 的状态是数组、对象等复杂的数据类型，需要明确指定泛型类型**
+
+- 解释：虽然都是数组、对象，但是，项目开发中不同需求所需要的数组结构、对象结构是不同的。因此，需要明确指定其类型
 
 
 ```jsx
 // 比如，频道列表数据是一个数组，所以，在 JS 中我们将其默认值设置为：[]
 // 但是，在 TS 中使用时，如果仅仅将默认值设置为空数组，list 的类型被推断为：never[]，此时，无法往数组中添加任何数据
 const [list, setList] = useState([])
+
+// 以下代码会报错：
+setList([1, 3])
 ```
 
-![image-20211121180010600](images/image-20211121180010600.png)
-
-- 注意：**useState 的状态是数组、对象等复杂的数据类型，需要明确指定泛型类型**
-  - 虽然都是数组、对象，但是，项目开发中不同需求所需要的数组结构、对象结构是不同的。因此，需要明确指定其类型
+- 明确指定数组类型：
 
 ```ts
 type Channel = {
@@ -792,6 +806,96 @@ useEffect(() => {
 }, [])
 ```
 
+### useRef
+
+**目标**：能够明确指定 useRef hook 的类型
+
+**内容**：
+
+`useRef` hook 可以用来获取 DOM 元素
+
+对于一个普通获取 DOM 元素的操作（比如，document.querySelector('#xxx')）来说，如果能找到该元素，结果就是：DOM 对象；如果找不到，结果为：null
+
+所以，在 TS 中为 `useRef` 设置 TS 类型时，需要同时考虑到这两种情况的类型，比如，以 input 标签为例：
+
+```tsx
+// 1 如果获取到 input 标签，对应的 TS 类型为： HTMLInputElement
+// 2 如果获取不到 input 标签，对应的 TS 类型为：null
+// 因此，useRef 的类型为： HTMLInputElement | null
+const inputRef = useRef<HTMLInputElement | null>(null)
+
+<input ref={inputRef} />
+```
+
+- 技巧：可以通过鼠标移动到 JSX 元素标签上，来查看 JSX 元素标签的类型
+
+### JS操作符：可选链操作符
+
+**目标：**掌握js中的提供的可选链操作符语法
+
+**内容**：
+
++ **可选链**操作符( **`?.`** )允许读取位于连接对象链深处的属性的值，而不必明确验证链中的每个引用是否有效
++ 参考文档：https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+
+```jsx
+let nestedProp = obj.first?.second;
+console.log(res.data?.data)
+obj.fn?.()
+
+if (obj.fn) {
+    obj.fn()
+}
+obj.fn && obj.fn()
+
+// 等价于
+let temp = obj.first;
+let nestedProp = ((temp === null || temp === undefined) ? undefined : temp.second);
+```
+
+### JS操作符：空值合并运算符
+
+**内容**：
+
+**空值合并操作符**（**`??`**），当左侧值为 [`null`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/null) 或者 [`undefined`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/undefined) 时，返回其右侧值，否则返回左侧值。
+
+```js
+console.log(false ?? 'a') // false
+console.log('' ?? 'a') // ''
+
+console.log(null ?? 'a') // 'a'
+console.log(undefined ?? 'a') // 'a'
+
+
+// ---
+// 逻辑或（||） 当左侧值转化为布尔值后为 false，那么就返回右侧值；否则返回左侧值
+console.log(false || 'a') // 'a'
+```
+
+### React 事件对象的类型
+
+**目标：**能够掌握如何在TS中为事件对象指定类型
+
+**内容：**
+
+为 JSX 标签绑定事件时，可能需要指定事件对象的类型，分两种情况：
+
+1. 直接在 JSX 标签上写事件处理程序，此时，不需要手动指定事件对象的类型
+   - 技巧：在 JSX 标签上先把事件处理程序写好，然后，鼠标移动到事件对象上面，来查看事件对象的类型
+
+![image-20211123215525876](images/image-20211123215525876.png)
+
+2. 如果将事件处理程序抽离出来，需要手动指定函数参数（事件对象）的类型
+
+```tsx
+const add = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.code === 'Enter') {
+    dispatch(addTodo(name))
+    setName('')
+  }
+}
+```
+
 ## Redux + TS
 
 **目标：**能够掌握如何在TS项目中初始化redux
@@ -800,30 +904,16 @@ useEffect(() => {
 
 + 安装依赖包：`yarn add react-redux @reduxjs/toolkit`
 
-+ 新建文件 store/index.ts（ 后缀为 `.ts` ）
-
-```jsx
-import { configureStore } from '@reduxjs/toolkit'
-import cart from './slices/cart'
-
-const store = configureStore({
-  reducer: {
-    cart,
-  },
-})
-
-export default store
-```
-
 + 新建文件 store/slices/todos.ts
 
-```ts
+```jsx
+// 指定状态的类型
 type TodoList = {
   id: number
   text: string
   done: boolean
 }
-const initialState: TodoList = [
+const initialState: TodoList[] = [
   {
     id: 1,
     text: '吃饭',
@@ -847,6 +937,21 @@ const todos = createSlice({
 })
 
 export default cart.reducer
+```
+
++ 新建文件 store/index.ts（ 后缀为 `.ts` ）
+
+```ts
+import { configureStore } from '@reduxjs/toolkit'
+import cart from './slices/cart'
+
+const store = configureStore({
+  reducer: {
+    cart,
+  },
+})
+
+export default store
 ```
 
 + index.tsx中
@@ -874,9 +979,11 @@ root.render(
 **内容**：
 
 + `useSelector` hook 是一个泛型函数，接收两个类型变量，分别来指定：
-1. 第一个类型变量：指定 Redux 仓库 state 的类型
-  
-2. 第二个类型变量：指定要获取状态的类型
+  1. 第一个类型变量：指定 Redux 仓库 state 的类型
+  2. 第二个类型变量：指定要获取状态的类型
+
+
+实际使用 `useSelector` hook 时，可以有以下 3 种使用方式：
 
 1. 指定泛型类型
 
@@ -894,19 +1001,20 @@ type RootState = { count: number }
 const count = useSelector((state: RootState) => state.count)
 ```
 
-3. 创建自定义 hook，在自定义 hook 中指定状态类型
+3. 【推荐】创建自定义 hook，在自定义 hook 中指定状态类型
    - [参考：react-redux 文档 - 定义带类型的 Hooks](https://react-redux.js.org/using-react-redux/usage-with-typescript#define-typed-hooks)
 
 ```tsx
+// store/hooks.ts 中：
+
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
-// import type { RootState, AppDispatch } from './store'
 
 type RootState = { count: number }
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
 // ---
 
-// 使用演示：
+// 在组件中，获取 Redux 状态的演示：
 import { useAppSelector } from '@/store/hooks'
 const count = useAppSelector(state => state.count)
 ```
@@ -920,13 +1028,28 @@ const count = useAppSelector(state => state.count)
 + `typeof xxx` 用来获取 xxx 对应的 TS 的类型
 
 ```ts
+// 在 JS 环境中使用 typeof 来获取类型：
+// const num = 1
+// console.log(typeof num) // number
+
+// 在 TS 环境中使用 typeof 来获取 TS 中的类型：
+const arr = [1, 2]
+
+// 在 TS 环境（上下文）中
+type B = typeof arr // 获取 arr 数组的 TS 类型: number[]
+let arr1: typeof arr = [1, 3]
+console.log(arr1)
 type A = typeof store.getState // 获取 store.getState 函数的 TS 类型
 
-const arr = [1, 2]
-type B = typeof arr				 // 获取 arr 数组的 TS 类型
+// 在 JS 环境（上下文）中
+console.log(typeof arr) // 获取 arr 数组的 JS 类型: object
 ```
 
+- 创建自定义 hook，在自定义 hook 中指定类型
+
 ```ts
+// store/hooks.ts 中：
+
 // 获取 dispatch 的类型
 type RootDispatch = typeof store.dispatch
 
@@ -943,13 +1066,13 @@ const useAppDispatch = () => useDispatch<RootDispatch>()
   + [参考：获取Redux仓库状态类型](https://react-redux.js.org/using-react-redux/usage-with-typescript#define-root-state-and-dispatch-types)
 
 ```ts
-// store/index.ts 中：
+// types/store.ts 中：
 
 // 获取 Redux 整个仓库的状态类型：
 export type RootState = ReturnType<typeof store.getState>
 ```
 
-+ `ReturnType` 是一个 TS 内置的泛型工具类型，用来获取函数的返回值类型，可以直接使用
++ `ReturnType` 是一个 TS 内置的泛型工具类型，用来获取函数的返回值类型
 
 ```tsx
 function add(n1: number, n2: number): number {
@@ -965,38 +1088,33 @@ type AddFnReturnType = ReturnType<AddFn>
 type AddFnReturnType = ReturnType<typeof add>
 ```
 
-更新 `useAppSelector` hook：
+### 封装 useAppSelector
+
+```ts
+// types/store.ts 中：
+export type RootState = ReturnType<typeof store.getState>
+```
 
 ```tsx
 import { TypedUseSelectorHook, useSelector } from 'react-redux'
 // 从 store 中拿到 RootState 状态
-import type { RootState } from './store'
+import type { RootState } from '@/types/store'
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 ```
 
-### React 事件对象的类型
+### 封装 useAppDispatch
 
-**目标：**能够掌握如何在TS中为事件对象指定类型
-
-**内容：**
-
-为 JSX 标签绑定事件时，可能需要指定事件对象的类型，分两种情况：
-
-1. 直接在 JSX 标签上写事件处理程序，此时，不需要手动指定事件对象的类型
-   - 技巧：在 JSX 标签上先把事件处理程序写好，然后，鼠标移动到事件对象上面，来查看事件对象的类型
-
-![image-20211123215525876](images/image-20211123215525876.png)
-
-2. 如果将事件处理程序抽离出来，需要手动指定函数参数（事件对象）的类型
-
-```tsx
-const add = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  if (e.code === 'Enter') {
-    dispatch(addTodo(name))
-    setName('')
-  }
-}
+```ts
+// types/store.ts 中：
+export type RootDispatch = typeof store.dispatch
 ```
+
+```ts
+import type { RootDispatch } from '@/types/store'
+const useAppDispatch = () => useDispatch<RootDispatch>()
+```
+
+将来，组件中，导入我们自己封装的 useAppSelector 和 useAppDispatch 即可，不需要每次都单独指定类型了
 
 ### createAsyncThunk 的使用
 
@@ -1171,17 +1289,4 @@ import _ from 'lodash'
 
 - TS 官方文档提供了一个页面，可以来查询 @types/* 库，[@types/* 库](https://www.typescriptlang.org/dt)
 - DefinitelyTyped 是一个 github 仓库，用来提供高质量 TypeScript 类型声明，[DefinitelyTyped 链接](https://github.com/DefinitelyTyped/DefinitelyTyped/)
-
----
-
-# 综合案例-黑马头条
-
-
-
-接口说明
-
-- 获取频道列表：http://geek.itheima.net/v1_0/channels
-- 获取频道新闻：http://geek.itheima.net/v1_0/articles?channel_id=频道id&timestamp=时间戳
-
-使用准备好的模板内容搭建项目
 
