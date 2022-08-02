@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./favicon.png" type="image/x-icon" />
+    <title>Ajax-weather</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      ul {
+        list-style: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="weather">
+      <h3 class="title"></h3>
+      <ul></ul>
+    </div>
+    <script>
+      let title = document.querySelector('.title')
+      // Ajax
+      let data
+      const xhr = new XMLHttpRequest()
+      xhr.open(
+        'GET',
+        'https://v0.yiketianqi.com/api?unescape=1&version=v91&appid=43656176&appsecret=I42og6Lm&city=北京'
+      )
+      xhr.send()
+      xhr.addEventListener('readystatechange', function () {
+        if (xhr.readyState === 4) {
+          data = JSON.parse(xhr.response)
+          console.log(data)
+          title.innerHTML = `${data.country}-${data.city}`
+          data.data.forEach((item) => {
+            console.log(item)
+            let li = `<h4><li>${item.week} —— ${item.narrative}</li></h4>`
+            document.querySelector('ul').innerHTML += li
+          })
+        }
+      })
+    </script>
+  </body>
+</html>
