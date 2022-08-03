@@ -12,8 +12,21 @@
         margin: 0;
         box-sizing: border-box;
       }
+      body {
+        display: flex;
+        justify-content: center;
+      }
       ul {
         list-style: none;
+      }
+      .weather {
+        margin-top: 50px;
+      }
+      li {
+        color: blue;
+      }
+      span {
+        color: aquamarine;
       }
     </style>
   </head>
@@ -39,7 +52,7 @@
           title.innerHTML = `${data.country}-${data.city}`
           data.data.forEach((item) => {
             console.log(item)
-            let li = `<h4><li>${item.week} —— ${item.narrative}</li></h4>`
+            let li = `<h4><li><span>${item.week}</span> —— ${item.narrative}</li></h4>`
             document.querySelector('ul').innerHTML += li
           })
         }
