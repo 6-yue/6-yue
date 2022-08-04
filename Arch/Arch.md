@@ -429,6 +429,15 @@ sudo shutdown now
 
 4. 如果要使用vue,则还需要执行 npm install -g @vue/cli 进行安装
 
+5. 换源
+
+   1. sudo npm install -g nrm
+   2. nrm list 查看国内源
+   3. npm use 源
+   4. yarn config set registry https://mirrors.cloud.tencent.co
+      m/npm/
+
+
 ##### Git
 
 1. sudo pacman -S openssh 如果需要本地推送到远程，需要安装 ssh
