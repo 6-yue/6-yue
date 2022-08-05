@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cpu换酒</title>
+  </head>
+  <body>
+    <script>
+      // n为空瓶 2=1，m为瓶盖 4=1
+      function cups(n, m) {
+        return n == 1 ? 1 : n + cups(n - 1)
+      }
+      cups(10, 10)
+    </script>
+  </body>
+</html>
