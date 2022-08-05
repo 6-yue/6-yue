@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>瓶-盖-换酒</title>
+    <title>瓶盖酒</title>
   </head>
   <body>
     <script>
@@ -16,12 +16,12 @@
       // 每次兑换的瓶子数量
       let sum = 0
       // 定义瓶子余数
-      let pn = 11
+      let pn = 10
       // 定义盖子余数
-      let gn = 9
+      let gn = 10
       //每次循环的瓶子数 定义一个空数组
       let arr = []
-      function a(p, g) {
+      function sumFn(p, g) {
         // 计算瓶子数量
         // 每次结果push到一个数组
         arr.push((sum = Math.floor(p / 2) + Math.floor(g / 4)))
@@ -34,16 +34,16 @@
         // 如果瓶子和盖子已经无法兑换了就不向下进行
         if (pn < 2 && gn < 4) return
         // ****每次递归得到瓶子和盖子的顺序，可以释放看一下规则***
-        console.log('瓶', pn, '盖', gn)
-        // 每次都需要递归一下新的瓶数和盖子的数值进行兑换
-        a(pn, gn)
+        // console.log("瓶", pn, "盖", gn);
+        // 每次都需要递归一下调用自身然后把新的瓶数和盖子的数值进去进行兑换
+        sumFn(pn, gn)
         // 定义瓶子最终的总数
         let sumNumber = 0
-        // 循环一下每次求的的瓶子的数组然后相加
+        // 循环然后求数组之和
         arr.forEach((item) => (sumNumber += item))
         return sumNumber
       }
-      console.log('最终能兑换的瓶数：', a(pn, gn))
+      console.log('最终能兑换的瓶数：', sumFn(pn, gn))
       console.log('剩余的空瓶子：', pn, '剩余的盖子', gn)
     </script>
   </body>
