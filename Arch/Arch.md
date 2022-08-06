@@ -649,9 +649,19 @@ sudo systemctl start virtlogd.service
 
 #### 调整CPU
 
+1. 使用 cpupower 需要提前进行安装
+2. sudo pacman -S cpupower
+
 ```js
-使用 cpupower 需要提前进行安装
-sudo pacman -S cpupower
+cpupower
+cpupower 是一组为辅助 CPU 调频而设计的用户空间工具。该软件包并非必须，但强烈建议安装，因为它提供了方便的命令行实用程序，并且内置 systemd 服务，可在启动时更改调频器。
+
+cpupower 的配置文件位于 /etc/default/cpupower。此配置文件由 /usr/lib/systemd/scripts/cpupower 中的 bash 脚本读取，而该脚本由 systemd 通过 cpupower.service 激活。若要在启动时启用 cpupower，请执行：
+
+# systemctl enable cpupower.service
+```
+
+```js
 cpupower 是一组为辅助 CPU 调频而设计的用户空间工具。linux内核支持调节CPU主频，降低功耗，已到达节能的效果。对于移动设备和笔记本来说，在没有接通电源的时候，续航是很重要的。
 
 通过选择系统空闲状态不同的电源管理策略，可以实现不同程度降低服务器功耗。但是，更低的功耗策略意味着 CPU 唤醒更慢对性能影响更大。对于对时延和性能要求高的应用。
